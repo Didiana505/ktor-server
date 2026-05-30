@@ -1,3 +1,12 @@
+# Служебные папки IDE
+.idea/
+.gradle/
+
+# Отчёты сборки
+build/
+server/build/
+**/build/reports/
+
 # Секретные ключи Firebase
 server/src/main/resources/service-account-key.json
 server/build/resources/main/service-account-key.json
@@ -7,10 +16,8 @@ server/build/resources/main/service-account-key.json
 *.class
 *.log
 *.lock
-build/
 out/
 target/
-server/build/
 server/out/
 
 # Отчёты тестов
@@ -22,14 +29,11 @@ server/out/
 **/.kotlin/
 
 # IDE
-.idea/
 *.iml
-.kotlin/
 *.iws
 *.ipr
 
 # Gradle
-.gradle/
 gradle-wrapper.jar
 gradle/wrapper/gradle-wrapper.jar
 
