@@ -1,0 +1,29 @@
+# Секретные ключи Firebase (ВАЖНО!)
+server/src/main/resources/service-account-key.json
+*.json
+
+# Файлы сборки
+*.class
+*.log
+*.lock
+build/
+out/
+target/
+server/build/
+server/out/
+
+# IDE
+.idea/
+*.iml
+.kotlin/
+*.iws
+*.ipr
+
+# Gradle
+.gradle/
+gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.jar
+
+# OS
+.DS_Store
+Thumbs.db
