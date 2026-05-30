@@ -13,9 +13,13 @@ target/
 server/build/
 server/out/
 
-# Отчёты тестов (HTML и результаты)
+# Отчёты тестов
 **/build/reports/
 **/build/test-results/
+
+# Kotlin метаданные
+.kotlin/
+**/.kotlin/
 
 # IDE
 .idea/
