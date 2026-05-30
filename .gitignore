@@ -1,5 +1,6 @@
 # Секретные ключи Firebase (ВАЖНО!)
 server/src/main/resources/service-account-key.json
+server/build/resources/main/service-account-key.json
 *.json
 
 # Файлы сборки
