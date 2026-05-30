@@ -1,4 +1,4 @@
-# Секретные ключи Firebase (ВАЖНО!)
+# Секретные ключи Firebase
 server/src/main/resources/service-account-key.json
 server/build/resources/main/service-account-key.json
 *.json
@@ -12,6 +12,10 @@ out/
 target/
 server/build/
 server/out/
+
+# Отчёты тестов (HTML и результаты)
+**/build/reports/
+**/build/test-results/
 
 # IDE
 .idea/
