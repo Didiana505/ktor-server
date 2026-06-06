@@ -4,8 +4,7 @@ import io.ktor.server.application.ApplicationCall
 import io.ktor.server.response.respond
 import io.ktor.http.HttpStatusCode
 
-class UnauthorizedException(message: String) : Exception(message)
-
+class UnauthorizedException(message: String) : Exception(message)// Исключение для случаев токен отсутствует или невалиден
 
 suspend fun ApplicationCall.getUidFromToken(): String? {
     val authHeader = request.headers["Authorization"]
@@ -16,7 +15,7 @@ suspend fun ApplicationCall.getUidFromToken(): String? {
     }
 
     return try {
-        val decodedToken = FirebaseConfig.getAuth().verifyIdToken(token)
+        val decodedToken = FirebaseConfig.getAuth().verifyIdToken(token) // проверка токена через Firebase
         decodedToken.uid
     } catch (e: Exception) {
         println("Token verification failed: ${e.message}")
@@ -25,7 +24,7 @@ suspend fun ApplicationCall.getUidFromToken(): String? {
 }
 
 
-suspend fun ApplicationCall.requireUid(): String {
+suspend fun ApplicationCall.requireUid(): String { // возвращает uid, иначе отправляет 401
     val uid = getUidFromToken()
     if (uid == null) {
         respond(HttpStatusCode.Unauthorized, "Unauthorized: Invalid or missing token")

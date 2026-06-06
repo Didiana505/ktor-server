@@ -18,4 +18,9 @@ data class UpdateAgeRequest(
     val firstName: String,
     val lastName: String,
     val age: Int
+)@Serializable
+data class CreateUserRequest(
+    val email: String,
+    val firstName: String,
+    val lastName: String
 )

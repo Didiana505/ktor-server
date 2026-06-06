@@ -15,9 +15,9 @@ import io.ktor.server.routing.post
 fun Route.enrollmentRoutes() {
 
 
-    post("/enrollments/secure") {
+    post("/enrollments/secure") { //запись на курс
         val tokenUid = call.requireUid()
-        val request = call.receive<EnrollRequest>()
+        val request = call.receive<EnrollRequest>() //читаем тело запроса
 
 
         val user = UserDao.getOrCreateUser(
@@ -53,10 +53,10 @@ fun Route.enrollmentRoutes() {
         }
     }
 
-    get("/enrollments/me") {
+    get("/enrollments/me") { //получить мои записи
         val firebaseUid = call.requireUid()
 
-        val user = UserDao.findByFirebaseUid(firebaseUid)
+        val user = UserDao.findByFirebaseUid(firebaseUid) //поиск в бд
 
         if (user == null) {
             call.respond(emptyList<Any>())

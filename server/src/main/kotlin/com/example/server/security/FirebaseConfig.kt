@@ -14,12 +14,12 @@ object FirebaseConfig {
         }
 
         try {
-            val serviceAccount: InputStream = this::class.java
+            val serviceAccount: InputStream = this::class.java // загрузка секретного ключа
                 .classLoader
                 .getResourceAsStream("service-account-key.json")
                 ?: throw IllegalStateException("service-account-key.json not found")
 
-            val options = FirebaseOptions.builder()
+            val options = FirebaseOptions.builder() // создание настроек Firebase
                 .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                 .build()
 
@@ -31,5 +31,5 @@ object FirebaseConfig {
         }
     }
 
-    fun getAuth(): FirebaseAuth = FirebaseAuth.getInstance()
+    fun getAuth(): FirebaseAuth = FirebaseAuth.getInstance() //возвращает экземпляр FirebaseAuth для проверки токенов
 }

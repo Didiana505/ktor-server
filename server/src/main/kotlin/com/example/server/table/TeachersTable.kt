@@ -12,7 +12,7 @@ object TeachersTable : Table("teachers") {
 
     val courseId = integer("course_id").references(
         CoursesTable.id,
-        onDelete = ReferenceOption.CASCADE
+        onDelete = ReferenceOption.RESTRICT
     )
 
     override val primaryKey = PrimaryKey(id)

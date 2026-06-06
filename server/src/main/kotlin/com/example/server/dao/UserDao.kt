@@ -31,17 +31,7 @@ object UserDao {
             .singleOrNull()
 
         if (existingUser != null) {
-            UsersTable.update({ UsersTable.firebaseUid eq firebaseUid }) {
-                it[UsersTable.email] = email
-                it[UsersTable.firstName] = firstName
-                it[UsersTable.lastName] = lastName
-            }
-
-            existingUser.copy(
-                email = email,
-                firstName = firstName,
-                lastName = lastName
-            )
+            existingUser
         } else {
             val newId = UsersTable.insert {
                 it[UsersTable.firebaseUid] = firebaseUid
@@ -64,49 +54,26 @@ object UserDao {
 
     fun updateAge(
         firebaseUid: String,
-        email: String,
-        firstName: String,
-        lastName: String,
         age: Int
-    ): UserResponse = transaction {
+    ): UserResponse? = transaction {
         val existingUser = UsersTable
             .selectAll()
             .where { UsersTable.firebaseUid eq firebaseUid }
             .map { row -> row.toUserResponse() }
             .singleOrNull()
 
-        if (existingUser != null) {
-            UsersTable.update({ UsersTable.firebaseUid eq firebaseUid }) {
-                it[UsersTable.email] = email
-                it[UsersTable.firstName] = firstName
-                it[UsersTable.lastName] = lastName
-                it[UsersTable.age] = age
-            }
-
-            existingUser.copy(
-                email = email,
-                firstName = firstName,
-                lastName = lastName,
-                age = age
-            )
-        } else {
-            val newId = UsersTable.insert {
-                it[UsersTable.firebaseUid] = firebaseUid
-                it[UsersTable.email] = email
-                it[UsersTable.firstName] = firstName
-                it[UsersTable.lastName] = lastName
-                it[UsersTable.age] = age
-            } get UsersTable.id
-
-            UserResponse(
-                id = newId,
-                firebaseUid = firebaseUid,
-                email = email,
-                firstName = firstName,
-                lastName = lastName,
-                age = age
-            )
+        // Если пользователя нет возвращаем null
+        if (existingUser == null) {
+            return@transaction null
         }
+
+        // Обновляем только возраст
+        UsersTable.update({ UsersTable.firebaseUid eq firebaseUid }) {
+            it[UsersTable.age] = age
+        }
+
+        // Возвращаем обновлённого пользователя
+        existingUser.copy(age = age)
     }
 
     private fun ResultRow.toUserResponse(): UserResponse {
